@@ -77,7 +77,7 @@ jobs:
           name: Create K8s Cluster on DigitalOcean 
           command: |
             export CLUSTER_NAME=\${CIRCLE_PROJECT_REPONAME}
-            export TAG=0.0.<< pipeline.number >>
+            export TAG=0.1.<< pipeline.number >>
             curl -sL https://github.com/digitalocean/doctl/releases/download/v$DOCTL_VERSION/doctl-$DOCTL_VERSION-linux-amd64.tar.gz | tar -xzv
             sudo mv doctl /usr/local/bin
             export DO_K8S_SLUG_VER="\$(doctl kubernetes options versions -o json -t \$DIGITAL_OCEAN_TOKEN | jq -r '.[0] | .slug')"
@@ -100,7 +100,7 @@ jobs:
           name: Deploy Application to K8s on DigitalOcean 
           command: |
             export CLUSTER_NAME=\${CIRCLE_PROJECT_REPONAME}
-            export TAG=0.0.<< pipeline.number >>
+            export TAG=0.1.<< pipeline.number >>
             export DOCKER_IMAGE="\${DOCKER_LOGIN}/\${CIRCLE_PROJECT_REPONAME}:\$TAG"
             curl -sL https://github.com/digitalocean/doctl/releases/download/v$DOCTL_VERSION/doctl-$DOCTL_VERSION-linux-amd64.tar.gz | tar -xzv
             sudo mv doctl /usr/local/bin          
@@ -147,9 +147,9 @@ jobs:
           name: Destroy App Deployment 
           command: |
             export CLUSTER_NAME=\${CIRCLE_PROJECT_REPONAME}
-            export TAG=0.0.<< pipeline.number >>
+            export TAG=0.1.<< pipeline.number >>
             export DOCKER_IMAGE="\${DOCKER_LOGIN}/\${CIRCLE_PROJECT_REPONAME}:\$TAG"
-            curl -sL https://github.com/digitalocean/doctl/releases/download/v$DOCTL_VERSION/doctl-\$DOCTL_VERSION-linux-amd64.tar.gz | tar -xzv
+            curl -sL https://github.com/digitalocean/doctl/releases/download/v$DOCTL_VERSION/doctl-$DOCTL_VERSION-linux-amd64.tar.gz | tar -xzv
             sudo mv doctl /usr/local/bin
             cd terraform/do_k8s_deploy_app/
             doctl auth init -t \$DIGITAL_OCEAN_TOKEN
@@ -162,7 +162,7 @@ jobs:
           name: Destroy K8s Cluster
           command: |
             export CLUSTER_NAME=\${CIRCLE_PROJECT_REPONAME}
-            export TAG=0.0.<< pipeline.number >>
+            export TAG=0.1.<< pipeline.number >>
             cd terraform/do_create_k8s/
             terraform init
             terraform destroy -var do_token=\$DIGITAL_OCEAN_TOKEN -var cluster_name=\$CLUSTER_NAME -auto-approve
