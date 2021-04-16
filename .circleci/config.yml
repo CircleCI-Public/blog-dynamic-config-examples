@@ -1,3 +1,5 @@
+# This file demonstrates how to leverage Setup Workflows to generate dynamic config files using scripts.
+
 version: 2.1
 setup: true
 orbs:
@@ -8,9 +10,10 @@ jobs:
     steps:
       - checkout
       - run: 
-          name: Generate Pipeline config.yml file
+          name: Generate Pipeline generated_config.yml file
           command: |
-            ./scripts/generate-pipeline-config "0.14.2" "1.59.0" # Terraform CLI and Digital Ocean versions to install
+            #The generate script has 2 arguments: 1) Terraform Version 2) DigitalOcean CLI Version
+            ./scripts/generate-pipeline-config "0.14.5" "1.59.0" # Terraform CLI and Digital Ocean versions to install
       - continuation/continue:
           parameters: '{}'
           configuration_path: configs/generated_config.yml
