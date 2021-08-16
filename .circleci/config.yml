@@ -1,23 +1,13 @@
-# This file demonstrates how to leverage Setup Workflows to generate dynamic config files using scripts.
-
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-setup: true
+# Use a package of configuration called an orb.
 orbs:
-  continuation: circleci/continuation@0.1.0
-jobs:
-  generate-config:
-    executor: continuation/default
-    steps:
-      - checkout
-      - run: 
-          name: Generate Pipeline generated_config.yml file
-          command: |
-            #The generate script has 2 arguments: 1) Terraform Version 2) DigitalOcean CLI Version
-            ./scripts/generate-pipeline-config "0.14.5" "1.59.0" # Terraform CLI and Digital Ocean versions to install
-      - continuation/continue:
-          parameters: '{}'
-          configuration_path: configs/generated_config.yml
+  # Declare a dependency on the welcome-orb
+  welcome: circleci/welcome-orb@0.4.1
+# Orchestrate or schedule a set of jobs
 workflows:
-  setup-workflow:
+  # Name the workflow "welcome"
+  welcome:
+    # Run the welcome/run job in its own container
     jobs:
-      - generate-config
+      - welcome/run
