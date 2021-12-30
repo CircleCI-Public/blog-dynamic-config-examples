@@ -34,10 +34,9 @@ TERRAFORM_TOKEN
 ## Project structure
 
 - `.circleci/` directory holds the config.yml file which implements Setup Workflows
-- `terraform/` directory hold the Terraform code 
+- `terraform/` directory hold the Terraform code
 - `scripts/` directory holds the scripts that generate config.yml files
 
-<!-- The following are reference urls -->
 [1]: https://circleci.com/blog/building-cicd-pipelines-using-dynamic-config/
 [2]: https://circleci.com/blog/our-cloud-platform-your-compute-introducing-the-circleci-runner/
 [3]: https://github.com/CircleCI-Public/blog-runner
